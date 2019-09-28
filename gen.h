@@ -1,0 +1,1 @@
+void gen(const std::string& in,const std::string& out, int size);
