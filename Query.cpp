@@ -35,7 +35,7 @@ ItemCheck::ItemCheck()
 bool ItemCheck::check(Item item)
 {
 //    std::cout << "Itemcheck : " << item.item << ":" << this->item <<std::endl;
-    if (item.item == "")
+    if (this->item == "")
         return true;
     else return item.item == this->item;
 }
@@ -48,46 +48,18 @@ ItemCheck::ItemCheck(std::string Name)
 
 AssemblyRange::AssemblyRange()
 {
-
+    assembly = "";
 }
 
 bool AssemblyRange::check(Assembly assembly)
 {
-    int flag = 1;
-    for (int i = 0; i< assembly.assembly.size();i++)
-    {
-        for (int j = 0;j < this->assembly.size();j++)
-        {
-            if (assembly.assembly[i].item == this->assembly[j].item && assembly.assembly[i].number == this->assembly[j].number) {
-                flag = 0;
-                break;
-            }
-            flag = 1;
-        }
-        if (flag == 1) return false;
-    }
-    return true;
+    // std::cout << assembly.print()<<std::endl;
+    return assembly.print() == this->assembly;
 }
 
 AssemblyRange::AssemblyRange(std::string str_range)
 {
-    int pos=0;
-    int pos1;
-    while (pos !=std::string::npos)
-    {
-    pos = str_range.find('_',pos);
-    Element element;
-    for (int i = 0;i < 10;i++)
-    {
-    if (pos != std::string::npos)
-    {
-        element.item = str_range.substr(0,pos);
-        pos1 = str_range.find(pos,' ');
-        element.number = str_range.substr(pos+1,pos1);
-        this->assembly.push_back(element);
-    }
-    }
-    }
+    this->assembly = str_range + " ";
 }
 
 std::string Query::read_field(std::string field_name, std::string query) {
@@ -97,7 +69,7 @@ std::string Query::read_field(std::string field_name, std::string query) {
         int pos1 = query.find(':', pos+ 1);
         unsigned int value_index = pos + field_name.length();
         if(pos1 != std::string::npos) {
-           //std::cout << query.substr(value_index, pos1 - value_index ) << ":" << field_name << "\n" ;
+//           std::cout << query.substr(value_index, pos1 - value_index ) << ":" << field_name << "\n" ;
             return query.substr(value_index, pos1 - value_index );
         } else {
 //            std::cout << query.substr(value_index) << ":npos :" << field_name << "\n" ;
@@ -112,10 +84,13 @@ Query::Query(std::string query) {
     this->style = read_field("style=", query);
     this->itemCheck = ItemCheck(read_field("itemCheck=", query));
     this->numberRange = NumberRange(read_field("numberRange=", query));
-    this->assemblyRange = AssemblyRange(read_field("assemblyRange=", query));
+    this->assemblyRange = AssemblyRange(read_field("assemblyCheck=", query));
 }
 bool Query::check(Record record) {
-//    std::cout << "check"<< std::endl;
+//    std::cout << "check ";
+//    std::cout << this->numberRange.check(record.number.number) << " ";
+//    std::cout << this->itemCheck.check(record.item) << " ";
+//    std::cout << this->assemblyRange.check(record.assembly)  << "\n";
     return this->numberRange.check(record.number.number)
            &&
            this->itemCheck.check(record.item)
@@ -127,5 +102,4 @@ void Query::write(Record record)
 {
     record.item.item = this->itemCheck.item;
     record.number.number = this->numberRange.min;
-    record.assembly.assembly = this->assemblyRange.assembly;
 }

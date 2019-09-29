@@ -20,15 +20,15 @@ Database::Database(std::string fname) {
     int c = 0;
     std::string tmp = "";
     while (!file.eof()) {
-        std::getline(file,tmp,'\t');
+        std::getline(file, tmp, ' ');
         if (tmp == "") break;
         t.item.item = tmp;
-        std::getline(file,tmp,'\t');
+        std::getline(file, tmp, ' ');
         t.number.number = std::stoi(tmp);
         Element a;
         for (int i = 0;i<10;i++)
         {
-            std::getline(file,tmp,'_');
+            std::getline(file, tmp, ' ');
             a.item = tmp;
             std::getline(file,tmp,' ');
             a.number = tmp;

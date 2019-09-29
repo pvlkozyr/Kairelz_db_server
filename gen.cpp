@@ -28,7 +28,7 @@ void gen(const std::string& izd, const std::string& out, int SIZE) {
         {
             assembly = "";
             assembly +=  items[rand() % items.size()];
-            assembly += "_";
+            assembly += " ";
             assembly += std::to_string(rand() % 100);
             file1 << assembly + " ";
         }

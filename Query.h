@@ -23,7 +23,7 @@ public:
 
 class AssemblyRange {
 public:
-    std::vector<Element> assembly;
+    std::string assembly;
     bool check(Assembly assembly);
     AssemblyRange();
     explicit AssemblyRange(std::string);

@@ -20,7 +20,7 @@ struct Element{
     std::string number;
     std::string print()
     {
-        return item + "_" +number;
+        return item + " " + number;
     }
 
 };
@@ -29,8 +29,8 @@ struct Assembly{
     std::string print()
     {
         std::string sbprint;
-    for(int i = 0; i < assembly.size(); i++) {
-            sbprint = assembly[i].print() + ",";
+        for (int i = 0; i < assembly.size(); i++) {
+            sbprint += assembly[i].print() + " ";
         }
         return sbprint;
     }
