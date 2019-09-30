@@ -30,7 +30,7 @@ struct Assembly{
     {
         std::string sbprint;
         for (int i = 0; i < assembly.size(); i++) {
-            sbprint += assembly[i].print() + " ";
+            sbprint += assembly[i].print() + ",";
         }
         return sbprint;
     }
@@ -39,7 +39,6 @@ struct Assembly{
 struct Record {
     Item item;
     Number number;
-    int i;
     Assembly assembly;
     std::string print()
     {

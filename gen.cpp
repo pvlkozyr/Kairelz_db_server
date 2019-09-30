@@ -22,16 +22,17 @@ void gen(const std::string& izd, const std::string& out, int SIZE) {
     std::ofstream file1(out);
     for (i = 0; i< SIZE;i++)
     {
-        file1 << items[rand() % items.size()] + " ";
-        file1 << std::to_string(rand() % 1000) + " ";
+        file1 << items[rand() % items.size()] + "\t";
+        file1 << std::to_string(rand() % 1000) + "\t";
         for (j = 0; j < 10;j++)
         {
             assembly = "";
             assembly +=  items[rand() % items.size()];
             assembly += " ";
             assembly += std::to_string(rand() % 100);
-            file1 << assembly + " ";
+            file1 << assembly + ",";
         }
+        file1 << "\n";
     }
     file1.close();
     file.close();

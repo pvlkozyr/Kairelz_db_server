@@ -16,24 +16,26 @@ Database::Database(std::string fname) {
         std::cout << "file doesn't exist" << std::endl;
         return;
     }
-    Record t;
     int c = 0;
     std::string tmp = "";
     while (!file.eof()) {
-        std::getline(file, tmp, ' ');
+        Record t;
+        std::getline(file, tmp, '\t');
         if (tmp == "") break;
         t.item.item = tmp;
-        std::getline(file, tmp, ' ');
+        std::getline(file, tmp, '\t');
         t.number.number = std::stoi(tmp);
         Element a;
         for (int i = 0;i<10;i++)
         {
             std::getline(file, tmp, ' ');
             a.item = tmp;
-            std::getline(file,tmp,' ');
+            std::getline(file, tmp, ',');
             a.number = tmp;
             t.assembly.assembly.push_back(a);
         }
+//        std::cout << "Added: " <<  t.print() << std::endl;
+        std::getline(file, tmp, '\n');
         db.push_back(t);
     }
     std::cout << "added: " << db.size() << std::endl;

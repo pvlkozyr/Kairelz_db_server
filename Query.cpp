@@ -8,22 +8,23 @@ NumberRange::NumberRange()
 
 NumberRange::NumberRange(const std::string& field)
 {
-    int pos = field.find(' ');
-    if (pos != std::string::npos)
-    {
-        this->min = std::stoi(field.substr(0,pos));
-        this->max = std::stoi(field.substr(pos+1));
-    }
+    min = -1;
+    max = -1;
+//    int pos = field.find(' ');
+//    if (pos != std::string::npos)
+//    {
+//        this->min = std::stoi(field.substr(0,pos));
+//        this->max = std::stoi(field.substr(pos+1));
+//    } else  this->min = std::stoi(field);
 }
 
 bool NumberRange::check(int value) {
-    return true;
-//    if (max == -1 && min == -1)
-//        return true;
-//    else if (max == -1)
-//        return value == min;
-//    else
-//        return value >= min && value <= max;
+    if (max == -1 && min == -1)
+        return true;
+    else if (max == -1)
+        return value == min;
+    else
+        return value >= min && value <= max;
 }
 
 
@@ -53,13 +54,14 @@ AssemblyRange::AssemblyRange()
 
 bool AssemblyRange::check(Assembly assembly)
 {
-    // std::cout << assembly.print()<<std::endl;
+    std::cout << "ass: " << assembly.print() << std::endl;
+    std::cout << "this->ass: " << this->assembly << std::endl;
     return assembly.print() == this->assembly;
 }
 
 AssemblyRange::AssemblyRange(std::string str_range)
 {
-    this->assembly = str_range + " ";
+    this->assembly = str_range;
 }
 
 std::string Query::read_field(std::string field_name, std::string query) {
@@ -72,7 +74,7 @@ std::string Query::read_field(std::string field_name, std::string query) {
 //           std::cout << query.substr(value_index, pos1 - value_index ) << ":" << field_name << "\n" ;
             return query.substr(value_index, pos1 - value_index );
         } else {
-//            std::cout << query.substr(value_index) << ":npos :" << field_name << "\n" ;
+            std::cout << query.substr(value_index) << ":npos :" << field_name << "\n";
             return query.substr(value_index);
         }
     } else {
@@ -87,7 +89,7 @@ Query::Query(std::string query) {
     this->assemblyRange = AssemblyRange(read_field("assemblyCheck=", query));
 }
 bool Query::check(Record record) {
-//    std::cout << "check ";
+    std::cout << "check ";
 //    std::cout << this->numberRange.check(record.number.number) << " ";
 //    std::cout << this->itemCheck.check(record.item) << " ";
 //    std::cout << this->assemblyRange.check(record.assembly)  << "\n";
